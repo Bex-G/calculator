@@ -1,0 +1,58 @@
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    width: 100vw;
+    margin: 0;
+    background: fixed url(images/desktop.jpg) no-repeat;
+    background-position: 15% 60%;
+}
+
+#calculator {
+    height: 675px;
+    width: 550px;
+    background-color: rgb(50, 50, 50);
+    border-radius: 25px;
+    box-shadow: 5px 5px 10px 2px rgba(0,0,0,.5);
+}
+
+#displayBar {
+    height: 75px;
+    width: 500px;
+    margin: 25px 25px 0 25px;
+    background-color: rgb(150, 200, 150);
+}
+
+#keypad {
+    display: inline-flex;
+    margin: 25px;
+}
+
+.numbers {
+    display: flex;
+    flex-flow: row wrap-reverse;
+    width: 400px;
+}
+
+.numberButton {
+    height: 120px;
+    width: 120px;
+    margin: 5px;
+}
+
+.operators {
+    width: 125px;
+}
+
+.operatorButton {
+    height: 95px;
+    width: 95px;
+    margin: 5px;
+}
+
+button {
+    font-size: x-large;
+    border-radius: 25px;
+    box-shadow: 5px 5px 10px 2px rgba(0,0,0,.2);
+}
