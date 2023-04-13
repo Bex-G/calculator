@@ -7,29 +7,33 @@
         <script src = "./script.js" defer></script>
     </head>
     <body>
-        <div id="calculator">
-            <div id="displayBar"></div>
-            <div id="keypad">
-                <div class="numbers">
-                    <button class="numberButton" id="clear">C</button>
-                    <button class="numberButton" id="num0">0</button>
-                    <button class="numberButton" id="decimal">.</button>
-                    <button class="numberButton" id="num1">1</button>
-                    <button class="numberButton" id="num2">2</button>
-                    <button class="numberButton" id="num3">3</button>
-                    <button class="numberButton" id="num4">4</button>
-                    <button class="numberButton" id="num5">5</button>
-                    <button class="numberButton" id="num6">6</button>
-                    <button class="numberButton" id="num7">7</button>
-                    <button class="numberButton" id="num8">8</button>
-                    <button class="numberButton" id="num9">9</button>
-                </div>   
-                <div class="operators">
-                    <button class="operatorButton", id="add">+</button>
+        <div class="calculator">
+            <div class="displayBar"><div id="displayText"></div></div>
+            <div class="top">
+                <button id="clear">C</button>
+                <div id="logo">BexI-95</div>
+            </div>
+            <div class="keypad">
+                <div class="leftSide">
+                    <button class="numberButton" id=".">.</button>
+                    <button class="numberButton" id="0">0</button>
+                    <button class="operatorButton" id="add">+</button>
+                    <button class="numberButton" id="1">1</button>
+                    <button class="numberButton" id="2">2</button>
+                    <button class="numberButton" id="3">3</button>
+                    <button class="numberButton" id="4">4</button>
+                    <button class="numberButton" id="5">5</button>
+                    <button class="numberButton" id="6">6</button>
+                    <button class="numberButton" id="7">7</button>
+                    <button class="numberButton" id="8">8</button>
+                    <button class="numberButton" id="9">9</button>
+                </div>
+                <div class="rightSide">
+                    <button id="back">back</button>
                     <button class="operatorButton", id="subtract">-</button>
                     <button class="operatorButton", id="multiply">x</button>
                     <button class="operatorButton", id="divide">÷</button>
-                    <button class="operatorButton", id="equals">=</button>
+                    <button id="equals">=</button>
                 </div> 
             </div>
         </div>

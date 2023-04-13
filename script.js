@@ -27,5 +27,20 @@ const operate = function (a, operator, b) {
     }
 };
 
+const display = document.querySelector('#display');
+const displayText = document.querySelector('#displayText');
+displayText.classList.add('content');
+
+
+const numberButton = document.querySelectorAll('.numberButton').forEach(numberButton => 
+    numberButton.addEventListener('click', function (e) {
+    displayText.textContent = e.target.id;
+    }
+));
+
+
+
+
+
 
 
