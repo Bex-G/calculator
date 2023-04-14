@@ -28,15 +28,40 @@ const operate = function (a, operator, b) {
 };
 
 const display = document.querySelector('#display');
-const displayText = document.querySelector('#displayText');
-displayText.classList.add('content');
 
-
-const numberButton = document.querySelectorAll('.numberButton').forEach(numberButton => 
-    numberButton.addEventListener('click', function (e) {
-    displayText.textContent = e.target.id;
+const valueBtn = document.querySelectorAll('.value').forEach(valueBtn => 
+    valueBtn.addEventListener('click', function (e) {
+        display.textContent = printValues(e.target.value);
     }
 ));
+
+const printValues = function(targetVal) {
+    newVal = display.textContent += targetVal;
+    return newVal;
+};
+
+const clearScreen = function() {
+    display.textContent = '';
+};
+
+const clearBtn = document.querySelector('#clear');
+  clearBtn.onclick = clearScreen;
+
+
+// const backspace = function() {
+// };
+
+// const backBtn = document.querySelector('#back');
+//   backBtn.onclick = backspace();
+
+// const solve = function() {
+// };
+
+// const equalsBtn = document.querySelector('#equals');
+//   equalsBtn.onclick = solve();
+
+
+
 
 
 

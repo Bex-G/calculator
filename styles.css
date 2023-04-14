@@ -24,7 +24,7 @@ body {
     background-color: rgb(150, 200, 150);
 }
 
-#displayText {
+#display {
     font: 50px bold Arial, sans-serif;
     text-align: right;
     padding: 12.5px;
@@ -58,7 +58,7 @@ body {
     width: 400px;
 }
 
-.numberButton, #add {
+.number, #add {
     height: 120px;
     width: 120px;
     margin: 5px;
@@ -68,7 +68,7 @@ body {
     width: 125px;
 }
 
-.operatorButton, #back, #equals {
+.operator, #back, #equals {
     height: 95px;
     width: 95px;
     margin: 5px;
