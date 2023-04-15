@@ -36,8 +36,12 @@ const valueBtn = document.querySelectorAll('.value').forEach(valueBtn =>
 ));
 
 const printValues = function(targetVal) {
-    newVal = display.textContent += targetVal;
-    return newVal;
+    if(display.textContent.length < 17) {
+        newVal = display.textContent += targetVal;
+        return newVal;
+    } else {
+        return display.textContent;
+    }
 };
 
 const clearScreen = function() {
