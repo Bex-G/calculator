@@ -87,6 +87,7 @@ const equalsBtn = document.querySelector('#equals');
         } else {
             display.textContent = answer;
         }
+    string = display.textContent;
 };
 
 const clearScreen = function() {
