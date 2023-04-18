@@ -49,6 +49,7 @@ const printToDisplay = function(targetVal) {
 
 const numberBtn = document.querySelectorAll('.number').forEach(numberBtn => 
     numberBtn.addEventListener('click', function (e) {
+        
         if (string.includes("+") || string.includes("-") 
         || string.includes("x") || string.includes("÷")) {
             findOperatorIndex(operator);
@@ -76,10 +77,9 @@ const findB = function(operatorIndex) {
     return b = parseInt(string.slice(operatorIndex + 1));
 };
 
-const equalsBtn = document.querySelector('#equals');
-    equalsBtn.onclick = () => {
-        findOperatorIndex(operator);
-        answer = (solve(findA(operatorIndex), operator, findB(operatorIndex)));
+const getAnswer = function() {
+    findOperatorIndex(operator);
+    answer = (solve(findA(operatorIndex), operator, findB(operatorIndex)));
         
         if (operator = "÷" && b == 0) {
             display.textContent = "ERROR";
@@ -89,6 +89,11 @@ const equalsBtn = document.querySelector('#equals');
             display.textContent = answer;
         }
     string = display.textContent;
+};
+
+const equalsBtn = document.querySelector('#equals');
+    equalsBtn.onclick = () => {
+        getAnswer();
 };
 
 const clearScreen = function() {
