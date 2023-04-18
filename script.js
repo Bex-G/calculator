@@ -42,7 +42,7 @@ const valueBtn = document.querySelectorAll('.value').forEach(valueBtn =>
 
 const display = document.querySelector('#display');
 
-const printValues = function(targetVal) {
+const printToDisplay = function(targetVal) {
     if (display.textContent.length < 17) {
         let newVal = display.textContent += targetVal;
         return newVal;
@@ -53,7 +53,7 @@ const printValues = function(targetVal) {
 
 const numberBtn = document.querySelectorAll('.number').forEach(numberBtn => 
     numberBtn.addEventListener('click', function (e) {
-        display.textContent = printValues(e.target.value);
+        display.textContent = printToDisplay(e.target.value);
     }
 ));
 
@@ -91,6 +91,7 @@ const equalsBtn = document.querySelector('#equals');
 
 const clearScreen = function() {
     display.textContent = '';
+    string = '';
 };
 
 const clearBtn = document.querySelector('#clear');
