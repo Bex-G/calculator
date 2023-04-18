@@ -43,18 +43,19 @@ const valueBtn = document.querySelectorAll('.value').forEach(valueBtn =>
 const display = document.querySelector('#display');
 
 const printToDisplay = function(targetVal) {
-    if (display.textContent.length < 17) {
-        let newVal = display.textContent += targetVal;
-        return newVal;
-    } else {
-        return display.textContent;
-    }
+    let newVal = display.textContent += targetVal;
+    return newVal;
 };
 
 const numberBtn = document.querySelectorAll('.number').forEach(numberBtn => 
     numberBtn.addEventListener('click', function (e) {
+        if (string.includes("+") || string.includes("-") 
+        || string.includes("x") || string.includes("÷")) {
+            findOperatorIndex(operator);
+            display.textContent = string.slice(operatorIndex + 1);
+        } else {
         display.textContent = printToDisplay(e.target.value);
-    }
+    }}
 ));
 
 const operatorBtn = document.querySelectorAll('.operator').forEach(operatorBtn => 
@@ -68,11 +69,11 @@ const findOperatorIndex = function(operator) {
 };
 
 const findA = function(operatorIndex) {
-    return a = string.slice(0, operatorIndex);
+    return a = parseInt(string.slice(0, operatorIndex));
 };
 
 const findB = function(operatorIndex) {
-    return b = string.slice(operatorIndex + 1);
+    return b = parseInt(string.slice(operatorIndex + 1));
 };
 
 const equalsBtn = document.querySelector('#equals');
