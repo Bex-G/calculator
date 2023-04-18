@@ -27,19 +27,32 @@ const solve = function (a, operator, b) {
     }
 };
 
+let string = "";
+
+const trackString = function(targetVal) {
+    let newString = string += targetVal;
+    return newString;
+};
+
+const valueBtn = document.querySelectorAll('.value').forEach(valueBtn => 
+    valueBtn.addEventListener('click', function (e) {
+        string = trackString(e.target.value);
+    }
+));
+
 const display = document.querySelector('#display');
 
 const printValues = function(targetVal) {
     if (display.textContent.length < 17) {
-        newVal = display.textContent += targetVal;
+        let newVal = display.textContent += targetVal;
         return newVal;
     } else {
         return display.textContent;
     }
 };
 
-const valueBtn = document.querySelectorAll('.value').forEach(valueBtn => 
-    valueBtn.addEventListener('click', function (e) {
+const numberBtn = document.querySelectorAll('.number').forEach(numberBtn => 
+    numberBtn.addEventListener('click', function (e) {
         display.textContent = printValues(e.target.value);
     }
 ));
@@ -51,15 +64,15 @@ const operatorBtn = document.querySelectorAll('.operator').forEach(operatorBtn =
 ));
 
 const findOperatorIndex = function(operator) {
-    return operatorIndex = display.textContent.indexOf(operator);
+    return operatorIndex = string.indexOf(operator);
 };
 
 const findA = function(operatorIndex) {
-    return a = display.textContent.slice(0, operatorIndex);
+    return a = string.slice(0, operatorIndex);
 };
 
 const findB = function(operatorIndex) {
-    return b = display.textContent.slice(operatorIndex + 1);
+    return b = string.slice(operatorIndex + 1);
 };
 
 const equalsBtn = document.querySelector('#equals');
@@ -82,6 +95,8 @@ const clearScreen = function() {
 
 const clearBtn = document.querySelector('#clear');
     clearBtn.onclick = clearScreen;
+
+
 
 // const backspace = function() {
 // };
