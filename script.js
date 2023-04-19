@@ -37,6 +37,7 @@ const trackString = function(targetVal) {
 const valueBtn = document.querySelectorAll('.value').forEach(valueBtn => 
     valueBtn.addEventListener('click', function (e) {
         string = trackString(e.target.value);
+        console.log(string);
     }
 ));
 
@@ -59,10 +60,28 @@ const numberBtn = document.querySelectorAll('.number').forEach(numberBtn =>
     }}
 ));
 
+const findOperator = function(string) {
+    if (string.includes("+")) {
+        return "+";
+    } else if (string.includes("-")) {
+        return "-";
+    } else if (string.includes("x")) {
+        return "x";
+    } else if (string.includes("÷")) {
+        return "÷";
+    }
+};
+
 const operatorBtn = document.querySelectorAll('.operator').forEach(operatorBtn => 
     operatorBtn.addEventListener('click', function (e) {
+        
+        if (string.slice(0, -1).includes("+") || string.slice(0, -1).includes("-") 
+        || string.slice(0, -1).includes("x") || string.slice(0, -1).includes("÷")) {
+            operator = findOperator(string.slice(0, -1));
+            getAnswer();
+        } else {
         operator = e.target.value;
-    }
+    }}
 ));
 
 const findOperatorIndex = function(operator) {
@@ -88,7 +107,7 @@ const getAnswer = function() {
         } else {
             display.textContent = answer;
         }
-    string = display.textContent;
+    string = answer;
 };
 
 const equalsBtn = document.querySelector('#equals');
