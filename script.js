@@ -28,6 +28,8 @@ const solve = function (a, operator, b) {
 };
 
 let string = "";
+let a = 0;
+let answer = "";
 
 const trackString = function(targetVal) {
     let newString = string += targetVal;
@@ -38,6 +40,9 @@ const valueBtn = document.querySelectorAll('.value').forEach(valueBtn =>
     valueBtn.addEventListener('click', function (e) {
         string = trackString(e.target.value);
         console.log(string);
+        if (string === a) {
+            console.log(string);
+        }
     }
 ));
 
@@ -51,12 +56,16 @@ const printToDisplay = function(targetVal) {
 const numberBtn = document.querySelectorAll('.number').forEach(numberBtn => 
     numberBtn.addEventListener('click', function (e) {
         
-        if (string.includes("+") || string.includes("-") 
+        if (string.slice(0, -1).includes("+") || string.slice(0, -1).includes("-") 
+        || string.slice(0, -1).includes("x") || string.slice(0, -1).includes("÷")) {
+            operator = findOperator(string.slice(0, -1));
+            getAnswer();
+        } else if (string.includes("+") || string.includes("-") 
         || string.includes("x") || string.includes("÷")) {
             findOperatorIndex(operator);
             display.textContent = string.slice(operatorIndex + 1);
         } else {
-        display.textContent = printToDisplay(e.target.value);
+         display.textContent = printToDisplay(e.target.value);
     }}
 ));
 
@@ -74,14 +83,8 @@ const findOperator = function(string) {
 
 const operatorBtn = document.querySelectorAll('.operator').forEach(operatorBtn => 
     operatorBtn.addEventListener('click', function (e) {
-        
-        if (string.slice(0, -1).includes("+") || string.slice(0, -1).includes("-") 
-        || string.slice(0, -1).includes("x") || string.slice(0, -1).includes("÷")) {
-            operator = findOperator(string.slice(0, -1));
-            getAnswer();
-        } else {
-        operator = e.target.value;
-    }}
+            operator = e.target.value;
+    }
 ));
 
 const findOperatorIndex = function(operator) {
@@ -98,7 +101,9 @@ const findB = function(operatorIndex) {
 
 const getAnswer = function() {
     findOperatorIndex(operator);
-    answer = (solve(findA(operatorIndex), operator, findB(operatorIndex)));
+    findA(operatorIndex);
+    findB(operatorIndex);
+    answer = (solve(a, operator, b));
         
         if (operator = "÷" && b == 0) {
             display.textContent = "ERROR";
@@ -108,6 +113,7 @@ const getAnswer = function() {
             display.textContent = answer;
         }
     string = answer;
+    a = answer;
 };
 
 const equalsBtn = document.querySelector('#equals');
