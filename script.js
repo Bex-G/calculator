@@ -59,6 +59,8 @@ const numberBtn = document.querySelectorAll('.number').forEach(numberBtn =>
         if (string.slice(0, -1).includes("+") || string.slice(0, -1).includes("-") 
         || string.slice(0, -1).includes("x") || string.slice(0, -1).includes("÷")) {
             operator = findOperator(string.slice(0, -1));
+            findOperatorIndex(operator);
+            display.textContent = findB(operatorIndex);
             getAnswer();
         } else if (string.includes("+") || string.includes("-") 
         || string.includes("x") || string.includes("÷")) {
@@ -83,7 +85,12 @@ const findOperator = function(string) {
 
 const operatorBtn = document.querySelectorAll('.operator').forEach(operatorBtn => 
     operatorBtn.addEventListener('click', function (e) {
-            operator = e.target.value;
+        
+        if (a === answer) {
+            display.textContent = answer;
+        }
+        
+        operator = e.target.value;
     }
 ));
 
@@ -108,9 +115,9 @@ const getAnswer = function() {
         if (operator = "÷" && b == 0) {
             display.textContent = "ERROR";
         } else if (answer.toString().includes(".")) {
-            display.textContent = parseFloat(answer.toFixed(3));
+            display.textContent = parseFloat(b.toFixed(3));
         } else {
-            display.textContent = answer;
+            display.textContent = b;
         }
     string = answer;
     a = answer;
@@ -118,6 +125,7 @@ const getAnswer = function() {
 
 const equalsBtn = document.querySelector('#equals');
     equalsBtn.onclick = () => {
+        
         getAnswer();
 };
 
