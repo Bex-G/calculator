@@ -40,9 +40,6 @@ const valueBtn = document.querySelectorAll('.value').forEach(valueBtn =>
     valueBtn.addEventListener('click', function (e) {
         string = trackString(e.target.value);
         console.log(string);
-        if (string === a) {
-            console.log(string);
-        }
     }
 ));
 
@@ -55,41 +52,26 @@ const printToDisplay = function(targetVal) {
 
 const numberBtn = document.querySelectorAll('.number').forEach(numberBtn => 
     numberBtn.addEventListener('click', function (e) {
-        
-        if (string.slice(0, -1).includes("+") || string.slice(0, -1).includes("-") 
-        || string.slice(0, -1).includes("x") || string.slice(0, -1).includes("÷")) {
-            operator = findOperator(string.slice(0, -1));
+        let previousString = string.slice(0, -1);
+
+        if (previousString.includes("+") || previousString.includes("-") 
+        || previousString.includes("x") || previousString.includes("÷")) {
             findOperatorIndex(operator);
             display.textContent = findB(operatorIndex);
             getAnswer();
-        } else if (string.includes("+") || string.includes("-") 
-        || string.includes("x") || string.includes("÷")) {
-            findOperatorIndex(operator);
-            display.textContent = string.slice(operatorIndex + 1);
+            string = answer;
+            a = answer;
         } else {
-         display.textContent = printToDisplay(e.target.value);
+            display.textContent = printToDisplay(e.target.value);
     }}
 ));
-
-const findOperator = function(string) {
-    if (string.includes("+")) {
-        return "+";
-    } else if (string.includes("-")) {
-        return "-";
-    } else if (string.includes("x")) {
-        return "x";
-    } else if (string.includes("÷")) {
-        return "÷";
-    }
-};
 
 const operatorBtn = document.querySelectorAll('.operator').forEach(operatorBtn => 
     operatorBtn.addEventListener('click', function (e) {
         
-        if (a === answer) {
+        if (a = answer) {
             display.textContent = answer;
         }
-        
         operator = e.target.value;
     }
 ));
@@ -119,28 +101,26 @@ const getAnswer = function() {
         } else {
             display.textContent = b;
         }
-    string = answer;
-    a = answer;
 };
 
 const equalsBtn = document.querySelector('#equals');
     equalsBtn.onclick = () => {
-        
-        getAnswer();
+        display.textContent = answer;
+        string = answer;
 };
 
 const clearScreen = function() {
-    display.textContent = '';
-    string = '';
+    display.textContent = "";
+    string = "";
+    answer = ""
 };
 
 const clearBtn = document.querySelector('#clear');
-    clearBtn.onclick = clearScreen;
-
+    clearBtn.onclick = clearScreen();
 
 
 // const backspace = function() {
 // };
 
 // const backBtn = document.querySelector('#back');
-//   backBtn.onclick = backspace();
+//     backBtn.onclick = backspace();
