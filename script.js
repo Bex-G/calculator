@@ -29,6 +29,7 @@ const solve = function (a, operator, b) {
 
 let string = "";
 let answer = "";
+let finalAnswer = "";
 
 const trackString = function(targetVal) {
     let newString = string += targetVal;
@@ -37,8 +38,8 @@ const trackString = function(targetVal) {
 
 const valueBtn = document.querySelectorAll('.value').forEach(valueBtn => 
     valueBtn.addEventListener('click', function (e) {
+        string = trackString(e.target.value);
         console.log(string);
-        console.log(answer);
     }
 ));
 
@@ -51,43 +52,58 @@ const printToDisplay = function(targetVal) {
 
 const numberBtn = document.querySelectorAll('.number').forEach(numberBtn => 
     numberBtn.addEventListener('click', function (e) {
-        string = trackString(e.target.value);
-        let previousString = string.slice(0, -1);
 
-        if (previousString.includes("+") || previousString.includes("-") 
+        let previousString = string.slice(0, -1);
+        
+        if (finalAnswer.toString().length > 1 && display.textContent === answer) {
+            clearScreen();
+            string = e.target.value;
+            display.textContent = printToDisplay(e.target.value);
+        } else if (previousString.includes("+") || previousString.includes("-") 
         || previousString.includes("x") || previousString.includes("÷")) {
-            b = parseInt(string.slice(operatorIndex + 1));
-            getAnswer();
+            b = string.slice(operatorIndex + 1)
             display.textContent = b;
         } else {
             display.textContent = printToDisplay(e.target.value);
-    }}
+        }
+    }
 ));
 
 const operatorBtn = document.querySelectorAll('.operator').forEach(operatorBtn => 
     operatorBtn.addEventListener('click', function (e) {
-        string = trackString(e.target.value);
-
-        if (a = answer) {
-            display.textContent = answer;
+        
+        let previousString = string.slice(0, -1);
+        
+        if (previousString.includes("+") || previousString.includes("-") 
+        || previousString.includes("x") || previousString.includes("÷")) {
+            getAnswer()
+            a = answer; 
             operator = e.target.value;
             operatorIndex = string.indexOf(operator);
+            display.textContent = a;
         } else {
+            a = string.slice(0, -1);
             operator = e.target.value;
             operatorIndex = string.indexOf(operator);
-            a = parseInt(string.slice(0, operatorIndex));
+            display.textContent = a;
         }
-    }   
+    }
 ));
 
 const getAnswer = function() {
-    answer = (solve(a, operator, parseInt(string.slice(operatorIndex + 1))));
+    answer = (solve(parseInt(a), operator, parseInt(b))); 
+    
+    if (answer.toString().length > 17 && answer.toString().includes(".")) {
+        answer = parseFloat(answer.toFixed(5));
+    }
 };
 
 const equalsBtn = document.querySelector('#equals');
     equalsBtn.onclick = () => {
         getAnswer();
         display.textContent = answer;
+        finalAnswer = answer;
+        string = answer;
 };
 
 const clearScreen = function() {
