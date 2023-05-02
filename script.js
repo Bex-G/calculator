@@ -38,8 +38,13 @@ const trackString = function(targetVal) {
 
 const valueBtn = document.querySelectorAll('.value').forEach(valueBtn => 
     valueBtn.addEventListener('click', function (e) {
-        string = trackString(e.target.value);
-        console.log(string);
+        if (display.textContent === "ERROR" || string.length > 16) {
+            display.textContent = "ERROR";
+            string = "";
+        } else {
+            string = trackString(e.target.value);
+            console.log(string);
+        }
     }
 ));
 
@@ -55,14 +60,17 @@ const numberBtn = document.querySelectorAll('.number').forEach(numberBtn =>
 
         let previousString = string.slice(0, -1);
         
-        if (finalAnswer.toString().length > 1 && display.textContent === answer) {
+        if (finalAnswer.toString().length > 1 && finalAnswer === answer) {
             clearScreen();
             string = e.target.value;
             display.textContent = printToDisplay(e.target.value);
         } else if (previousString.includes("+") || previousString.includes("-") 
         || previousString.includes("x") || previousString.includes("÷")) {
-            b = string.slice(operatorIndex + 1)
+            operatorIndex = string.lastIndexOf(operator);
+            b = string.slice(operatorIndex + 1);
             display.textContent = b;
+        } else if (display.textContent === "ERROR" || string.length > 16) {
+            display.textContent = "ERROR";
         } else {
             display.textContent = printToDisplay(e.target.value);
         }
@@ -73,15 +81,22 @@ const operatorBtn = document.querySelectorAll('.operator').forEach(operatorBtn =
     operatorBtn.addEventListener('click', function (e) {
         
         let previousString = string.slice(0, -1);
+        let previousChar = string.charAt(string.length - 2);
         
-        if (previousString.includes("+") || previousString.includes("-") 
+        if (previousChar.includes("+") || previousChar.includes("-") 
+        || previousChar.includes("x") || previousChar.includes("÷")) {
+            display.textContent = "ERROR";
+        } else if (previousString.includes("+") || previousString.includes("-") 
         || previousString.includes("x") || previousString.includes("÷")) {
-            getAnswer()
-            a = answer; 
-            operator = e.target.value;
-            operatorIndex = string.indexOf(operator);
-            display.textContent = a;
-        } else {
+            getAnswer()   
+            if (answer === Infinity) {
+                display.textContent = "ERROR";
+            } else {
+                a = answer; 
+                operator = e.target.value;
+                operatorIndex = string.indexOf(operator);
+                display.textContent = a;
+        }} else {
             a = string.slice(0, -1);
             operator = e.target.value;
             operatorIndex = string.indexOf(operator);
@@ -91,10 +106,10 @@ const operatorBtn = document.querySelectorAll('.operator').forEach(operatorBtn =
 ));
 
 const getAnswer = function() {
-    answer = (solve(parseInt(a), operator, parseInt(b))); 
-    
-    if (answer.toString().length > 17 && answer.toString().includes(".")) {
-        answer = parseFloat(answer.toFixed(5));
+    answer = (solve(parseFloat(a), operator, parseFloat(b)));
+
+    if (answer.toString().includes(".")) {
+        display.textContent = parseFloat(answer.toFixed(5));
     }
 };
 
@@ -103,13 +118,13 @@ const equalsBtn = document.querySelector('#equals');
         getAnswer();
         display.textContent = answer;
         finalAnswer = answer;
-        string = answer;
+        string = answer;  
 };
 
 const clearScreen = function() {
     display.textContent = "";
     string = "";
-    answer = ""
+    answer = "";
 };
 
 const clearBtn = document.querySelector('#clear');
