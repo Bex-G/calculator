@@ -64,7 +64,9 @@ const numberBtn = document.querySelectorAll('.number').forEach(numberBtn =>
 
         let previousString = string.slice(0, -1);
         
-        if (previousString.includes("+") || previousString.includes("-") 
+        if (display.textContent === "ERROR" || display.textContent.length > 17) {
+            display.textContent = "ERROR";
+        } else if (previousString.includes("+") || previousString.includes("-") 
         || previousString.includes("x") || previousString.includes("÷")) {
             operatorIndex = string.lastIndexOf(operator);
             b = string.slice(operatorIndex + 1);
@@ -73,8 +75,6 @@ const numberBtn = document.querySelectorAll('.number').forEach(numberBtn =>
                 clearScreen();
                 string = e.target.value;
                 display.textContent = e.target.value;
-        } else if (display.textContent === "ERROR" || string.length > 17) {
-            display.textContent = "ERROR";
         } else {
             display.textContent = printToDisplay(e.target.value);
         }
