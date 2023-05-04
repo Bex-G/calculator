@@ -30,16 +30,19 @@ const solve = function (a, operator, b) {
 let string = "";
 let answer = "";
 let finalAnswer = "";
+let operator = "";
+let b = "";
 
 const trackString = function(targetVal) {
+    
     let newString = string += targetVal;
     return newString;
 };
 
 const valueBtn = document.querySelectorAll('.value').forEach(valueBtn => 
     valueBtn.addEventListener('click', function (e) {
-        if (display.textContent === "ERROR" || string.length > 16) {
-            display.textContent = "ERROR";
+        
+        if (display.textContent === "ERROR") {
             string = "";
         } else {
             string = trackString(e.target.value);
@@ -51,6 +54,7 @@ const valueBtn = document.querySelectorAll('.value').forEach(valueBtn =>
 const display = document.querySelector('#display');
 
 const printToDisplay = function(targetVal) {
+    
     let newVal = display.textContent += targetVal;
     return newVal;
 };
@@ -60,16 +64,16 @@ const numberBtn = document.querySelectorAll('.number').forEach(numberBtn =>
 
         let previousString = string.slice(0, -1);
         
-        if (finalAnswer.toString().length > 1 && finalAnswer === answer) {
-            clearScreen();
-            string = e.target.value;
-            display.textContent = printToDisplay(e.target.value);
-        } else if (previousString.includes("+") || previousString.includes("-") 
+        if (previousString.includes("+") || previousString.includes("-") 
         || previousString.includes("x") || previousString.includes("÷")) {
             operatorIndex = string.lastIndexOf(operator);
             b = string.slice(operatorIndex + 1);
             display.textContent = b;
-        } else if (display.textContent === "ERROR" || string.length > 16) {
+        } else if (finalAnswer.toString().length > 1 && finalAnswer === answer) {
+                clearScreen();
+                string = e.target.value;
+                display.textContent = e.target.value;
+        } else if (display.textContent === "ERROR" || string.length > 17) {
             display.textContent = "ERROR";
         } else {
             display.textContent = printToDisplay(e.target.value);
@@ -83,19 +87,19 @@ const operatorBtn = document.querySelectorAll('.operator').forEach(operatorBtn =
         let previousString = string.slice(0, -1);
         let previousChar = string.charAt(string.length - 2);
         
-        if (previousChar.includes("+") || previousChar.includes("-") 
-        || previousChar.includes("x") || previousChar.includes("÷")) {
+        if (previousChar === "+" || previousChar === "-" 
+        || previousChar === "x" || previousChar === "÷") {
             display.textContent = "ERROR";
         } else if (previousString.includes("+") || previousString.includes("-") 
         || previousString.includes("x") || previousString.includes("÷")) {
             getAnswer()   
-            if (answer === Infinity) {
-                display.textContent = "ERROR";
-            } else {
+            if (isFinite(answer)) {
                 a = answer; 
                 operator = e.target.value;
                 operatorIndex = string.indexOf(operator);
                 display.textContent = a;
+            } else {
+                display.textContent = "ERROR";
         }} else {
             a = string.slice(0, -1);
             operator = e.target.value;
@@ -106,25 +110,43 @@ const operatorBtn = document.querySelectorAll('.operator').forEach(operatorBtn =
 ));
 
 const getAnswer = function() {
+    
     answer = (solve(parseFloat(a), operator, parseFloat(b)));
 
     if (answer.toString().includes(".")) {
-        display.textContent = parseFloat(answer.toFixed(5));
+        answer = parseFloat(answer);
+        if (answer.toString().length > 15) {
+            answer = answer.toFixed(2);
+        }
     }
+    display.textContent = answer;
 };
 
 const equalsBtn = document.querySelector('#equals');
     equalsBtn.onclick = () => {
-        getAnswer();
-        display.textContent = answer;
-        finalAnswer = answer;
-        string = answer;  
+        
+        if (operator !== "" || b !== "") {
+            getAnswer();
+        } else {
+            display.textContent = "ERROR";
+        }
+
+        if (isFinite(answer) && answer.toString().length <= 17) {
+            display.textContent = answer;
+            finalAnswer = answer;
+            string = answer;   
+        } else {
+            display.textContent = "ERROR";
+        }
 };
 
 const clearScreen = function() {
     display.textContent = "";
     string = "";
     answer = "";
+    a = "";
+    b = "";
+    operator = "";
 };
 
 const clearBtn = document.querySelector('#clear');
