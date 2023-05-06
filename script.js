@@ -121,11 +121,12 @@ const getAnswer = function() {
     }
     answer = answer.toString();
     display.textContent = answer;
+    b = "";
 };
 
 const equalsBtn = document.querySelector('#equals');
     equalsBtn.onclick = () => {
-        
+
         if (operator !== "" || b !== "") {
             getAnswer();
         } else {
