@@ -64,7 +64,7 @@ const numberBtn = document.querySelectorAll('.number').forEach(numberBtn =>
 
         let previousString = string.slice(0, -1);
         
-        if (display.textContent === "ERROR" || display.textContent.length > 17) {
+        if (display.textContent === "ERROR" || display.textContent.length > 16) {
             display.textContent = "ERROR";
         } else if (previousString.includes("+") || previousString.includes("-") 
         || previousString.includes("x") || previousString.includes("÷")) {
