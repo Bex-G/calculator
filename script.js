@@ -71,7 +71,7 @@ const numberBtn = document.querySelectorAll('.number').forEach(numberBtn =>
             operatorIndex = string.lastIndexOf(operator);
             b = string.slice(operatorIndex + 1);
             display.textContent = b;
-        } else if (finalAnswer.toString().length > 1 && finalAnswer === answer) {
+        } else if (finalAnswer.length > 1 && finalAnswer === answer) {
                 clearScreen();
                 string = e.target.value;
                 display.textContent = e.target.value;
@@ -119,6 +119,7 @@ const getAnswer = function() {
             answer = answer.toFixed(2);
         }
     }
+    answer = answer.toString();
     display.textContent = answer;
 };
 
@@ -131,7 +132,7 @@ const equalsBtn = document.querySelector('#equals');
             display.textContent = "ERROR";
         }
 
-        if (isFinite(answer) && answer.toString().length <= 17) {
+        if (isFinite(answer) && answer.length <= 17) {
             display.textContent = answer;
             finalAnswer = answer;
             string = answer;   
@@ -153,8 +154,27 @@ const clearBtn = document.querySelector('#clear');
     clearBtn.onclick = clearScreen;
 
 
-// const backspace = function() {
-// };
+const backspace = function() {
 
-// const backBtn = document.querySelector('#back');
-//     backBtn.onclick = backspace;
+    let lastChar = string.charAt(string.length - 1);
+        
+    if (finalAnswer.length > 1 && finalAnswer === answer) {
+        clearScreen();
+    } else if (display.textContent === "ERROR") {
+        clearScreen();
+    } else if (lastChar !== "+" && lastChar !== "-" 
+    && lastChar !== "x" && lastChar !== "÷") {
+        string = string.slice(0, -1);
+        display.textContent = display.textContent.slice(0, -1);
+    }
+
+    if (string.includes("+") || string.includes("-") 
+    || string.includes("x") || string.includes("÷")) {
+        operatorIndex = string.lastIndexOf(operator);
+        b = string.slice(operatorIndex + 1);
+    }
+    console.log(string);
+};
+
+const backBtn = document.querySelector('#back');
+    backBtn.onclick = backspace;
