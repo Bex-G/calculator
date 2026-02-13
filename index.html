@@ -1,41 +1,42 @@
 <!doctype html>
-<html>
-    <head>
-        <meta charset="UTF-8">
-        <title>Calculator</title>
-        <link rel = "stylesheet" href = "./styles.css">
-        <script src = "./script.js" defer></script>
-    </head>
-    <body>
-        <div class="calculator">
-            <div class="displayBar"><div id="display"></div></div>
-            <div class="top">
-                <button id="clear">C</button>
-                <div id="logo">BexI-95</div>
-            </div>
-            <div class="keypad">
-                <div class="leftSide">
-                    <button class="number value" value=".">.</button>
-                    <button class="number value" value="0">0</button>
-                    <button class="operator value" value="+" id="add">+</button>
-                    <button class="number value" value="1">1</button>
-                    <button class="number value" value="2">2</button>
-                    <button class="number value" value="3">3</button>
-                    <button class="number value" value="4">4</button>
-                    <button class="number value" value="5">5</button>
-                    <button class="number value" value="6">6</button>
-                    <button class="number value" value="7">7</button>
-                    <button class="number value" value="8">8</button>
-                    <button class="number value" value="9">9</button>
-                </div>
-                <div class="rightSide">
-                    <button id="back">back</button>
-                    <button class="operator value" value="-">-</button>
-                    <button class="operator value" value="x">x</button>
-                    <button class="operator value" value="÷">÷</button>
-                    <button id="equals">=</button>
-                </div> 
-            </div>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Calculator</title>
+    <link rel="stylesheet" href="styles.css" />
+    <script src="script.js" defer></script>
+  </head>
+  <body>
+    <div id="calculator">
+      <p id="display"></p>
+      <span id="top">
+        <button class="key" id="clearBtn">C</button>
+        <p>Bex-I-95</p>
+      </span>
+      <div id="keypad">
+        <div class="left">
+          <button class="key number">7</button>
+          <button class="key number">8</button>
+          <button class="key number">9</button>
+          <button class="key number">4</button>
+          <button class="key number">5</button>
+          <button class="key number">6</button>
+          <button class="key number">1</button>
+          <button class="key number">2</button>
+          <button class="key number">3</button>
+          <button class="key number">.</button>
+          <button class="key number">0</button>
+          <button class="key" id="equalsBtn">=</button>
         </div>
-    </body>
+        <div class="right">
+          <button class="key" id="backBtn">back</button>
+          <button class="key operator">+</button>
+          <button class="key operator">-</button>
+          <button class="key operator">x</button>
+          <button class="key operator">÷</button>
+        </div>
+      </div>
+    </div>
+  </body>
 </html>

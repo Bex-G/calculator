@@ -1,181 +1,134 @@
-const add = function(a, b) {
-    return a + b;
-};
+const clearBtn = document.getElementById("clearBtn");
+const backBtn = document.getElementById("backBtn");
+const numbers = document.querySelectorAll(".number");
+const operators = document.querySelectorAll(".operator");
+const symbols = ["+", "-", "x", "÷"];
+const equalsBtn = document.getElementById("equalsBtn");
+const display = document.getElementById("display");
 
-const subtract =  function(a, b) {
-    return a - b;
-};
+let a;
+let b;
+let symbol;
 
-const multiply = function(a, b) {
-    return a * b;
-};
+function clear() {
+  display.textContent = "";
+  a = undefined;
+  b = undefined;
+  symbol = undefined;
+}
 
-const divide = function(a, b) {
-    return a / b
-};
+function handleNegativeEquations() {
+  symbolIndex = display.textContent.lastIndexOf(symbol);
+  a = Number(display.textContent.slice(0, symbolIndex));
+  b = Number(display.textContent.slice(symbolIndex + 1));
+  displayResult();
+}
 
-const solve = function (a, operator, b) {
+function handleRunningEquations() {
+  symbolIndex = display.textContent.indexOf(symbol);
+  a = Number(display.textContent.slice(0, symbolIndex));
+  b = Number(display.textContent.slice(symbolIndex + 1));
+  displayResult();
+}
 
-    if (operator === "+") {
-        return add(a, b);
-    } else if (operator === "-") {
-        return subtract(a, b);
-    } else if (operator === "x") {
-        return multiply(a, b);
-    } else if (operator === "÷") {
-        return divide(a, b);
-    }
-};
-
-let string = "";
-let answer = "";
-let finalAnswer = "";
-let operator = "";
-let b = "";
-
-const trackString = function(targetVal) {
-    
-    let newString = string += targetVal;
-    return newString;
-};
-
-const valueBtn = document.querySelectorAll('.value').forEach(valueBtn => 
-    valueBtn.addEventListener('click', function (e) {
-        
-        if (display.textContent === "ERROR") {
-            string = "";
+function displayResult() {
+  //checks for NaN
+  if (a === a && b === b) {
+    switch (symbol) {
+      case "+":
+        display.textContent = parseFloat((a + b).toFixed(5));
+        break;
+      case "-":
+        display.textContent = parseFloat((a - b).toFixed(5));
+        break;
+      case "x":
+        display.textContent = parseFloat((a * b).toFixed(5));
+        break;
+      case "÷":
+        if (b === 0) {
+          display.textContent = "ERROR";
         } else {
-            string = trackString(e.target.value);
-            console.log(string);
+          display.textContent = parseFloat((a / b).toFixed(5));
         }
+        break;
     }
-));
+    a = display.textContent;
+    b = undefined;
+    symbol = undefined;
+  } else {
+    clear();
+    display.textContent = "ERROR";
+  }
+}
 
-const display = document.querySelector('#display');
+clearBtn.addEventListener("click", () => {
+  clear();
+});
 
-const printToDisplay = function(targetVal) {
-    
-    let newVal = display.textContent += targetVal;
-    return newVal;
-};
+backBtn.addEventListener("click", () => {
+  if (display.textContent === "ERROR") {
+    clear();
+  } else {
+    display.textContent = display.textContent.slice(0, -1);
+  }
+});
 
-const numberBtn = document.querySelectorAll('.number').forEach(numberBtn => 
-    numberBtn.addEventListener('click', function (e) {
-
-        let previousString = string.slice(0, -1);
-        
-        if (display.textContent === "ERROR" || display.textContent.length > 16) {
-            display.textContent = "ERROR";
-        } else if (previousString.includes("+") || previousString.includes("-") 
-        || previousString.includes("x") || previousString.includes("÷")) {
-            operatorIndex = string.lastIndexOf(operator);
-            b = string.slice(operatorIndex + 1);
-            display.textContent = b;
-        } else if (finalAnswer.length > 1 && finalAnswer === answer) {
-                clearScreen();
-                string = e.target.value;
-                display.textContent = e.target.value;
-        } else {
-            display.textContent = printToDisplay(e.target.value);
-        }
+numbers.forEach((number) => {
+  number.addEventListener("click", (e) => {
+    if (display.textContent === "ERROR") {
+      clear();
+    } else {
+      display.textContent = display.textContent + e.target.textContent;
     }
-));
+  });
+});
 
-const operatorBtn = document.querySelectorAll('.operator').forEach(operatorBtn => 
-    operatorBtn.addEventListener('click', function (e) {
-        
-        let previousString = string.slice(0, -1);
-        let previousChar = string.charAt(string.length - 2);
-        
-        if (previousChar === "+" || previousChar === "-" 
-        || previousChar === "x" || previousChar === "÷") {
-            display.textContent = "ERROR";
-        } else if (previousString.includes("+") || previousString.includes("-") 
-        || previousString.includes("x") || previousString.includes("÷")) {
-            getAnswer()   
-            if (isFinite(answer)) {
-                a = answer; 
-                operator = e.target.value;
-                operatorIndex = string.indexOf(operator);
-                display.textContent = a;
-            } else {
-                display.textContent = "ERROR";
-        }} else {
-            a = string.slice(0, -1);
-            operator = e.target.value;
-            operatorIndex = string.indexOf(operator);
-            display.textContent = a;
-        }
-    }
-));
-
-const getAnswer = function() {
-    
-    answer = (solve(parseFloat(a), operator, parseFloat(b)));
-
-    if (answer.toString().includes(".")) {
-        answer = parseFloat(answer);
-        if (answer.toString().length > 15) {
-            answer = answer.toFixed(2);
-        }
-    }
-    answer = answer.toString();
-    display.textContent = answer;
-    b = "";
-};
-
-const equalsBtn = document.querySelector('#equals');
-    equalsBtn.onclick = () => {
-
-        if (operator !== "" || b !== "") {
-            getAnswer();
-        } else {
-            display.textContent = "ERROR";
-        }
-
-        if (isFinite(answer) && answer.length <= 17) {
-            display.textContent = answer;
-            finalAnswer = answer;
-            string = answer;   
-        } else {
-            display.textContent = "ERROR";
-        }
-};
-
-const clearScreen = function() {
-    display.textContent = "";
-    string = "";
-    answer = "";
-    a = "";
-    b = "";
-    operator = "";
-};
-
-const clearBtn = document.querySelector('#clear');
-    clearBtn.onclick = clearScreen;
-
-
-const backspace = function() {
-
-    let lastChar = string.charAt(string.length - 1);
-        
-    if (finalAnswer.length > 1 && finalAnswer === answer) {
-        clearScreen();
-    } else if (display.textContent === "ERROR") {
-        clearScreen();
-    } else if (lastChar !== "+" && lastChar !== "-" 
-    && lastChar !== "x" && lastChar !== "÷") {
-        string = string.slice(0, -1);
-        display.textContent = display.textContent.slice(0, -1);
+operators.forEach((operator) => {
+  operator.addEventListener("click", (e) => {
+    if (
+      display.textContent.length < 1 &&
+      e.target.textContent !== "-" // disallows equations starting with "+," "x," or "/"
+    ) {
+      display.textContent = "ERROR";
+      return;
     }
 
-    if (string.includes("+") || string.includes("-") 
-    || string.includes("x") || string.includes("÷")) {
-        operatorIndex = string.lastIndexOf(operator);
-        b = string.slice(operatorIndex + 1);
+    if (
+      // checks for preexisting operators
+      symbols.find((item) => display.textContent.slice(1).includes(item))
+    ) {
+      if (display.textContent.slice(0, 1) === "-") {
+        handleNegativeEquations();
+        if (display.textContent !== "ERROR") {
+          display.textContent = display.textContent + e.target.textContent;
+          symbol = e.target.textContent;
+        }
+      } else {
+        handleRunningEquations();
+        if (display.textContent !== "ERROR") {
+          display.textContent = display.textContent + e.target.textContent;
+          symbol = e.target.textContent;
+        }
+      }
+    } else {
+      // assigns a new symbol (operator) variable if one doesn't already exist
+      if (display.textContent === "ERROR") {
+        clear();
+      } else {
+        display.textContent = display.textContent + e.target.textContent;
+      }
+      symbol = e.target.textContent;
     }
-    console.log(string);
-};
+  });
+});
 
-const backBtn = document.querySelector('#back');
-    backBtn.onclick = backspace;
+equalsBtn.addEventListener("click", () => {
+  if (display.textContent.slice(0, 1) === "-") {
+    handleNegativeEquations();
+  } else {
+    symbolIndex = display.textContent.indexOf(symbol);
+    a = Number(display.textContent.slice(0, symbolIndex));
+    b = Number(display.textContent.slice(symbolIndex + 1));
+    displayResult();
+  }
+});
